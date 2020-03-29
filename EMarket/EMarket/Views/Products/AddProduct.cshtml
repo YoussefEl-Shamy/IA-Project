@@ -1,0 +1,126 @@
+﻿@model EMarket.ViewModel.ProductCategoriesViewModel
+
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 id="Pagetitle" style="text-align:center; font-weight:bold; margin-right:auto; margin-left:auto">
+    <span style="border-bottom:1.5px solid">Add New Product</span>
+</h2>
+
+@using (Html.BeginForm("AddConfirmmed", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <style>
+        #real-life {
+            display: none;
+        }
+
+        div.cert {
+            margin-top: 15px;
+        }
+
+        img.cer {
+            display: none;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #custom-button {
+            margin-left: 5px;
+            padding: 10px;
+            color: white;
+            border: 1px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #009578;
+        }
+
+        #custom-text {
+            margin-left: 10px;
+            font-family: sans-serif;
+            color: red;
+            font-size: 15.8px;
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" style="font-weight:bold; margin-top:20px">
+            <div class="cert">
+                @Html.LabelFor(m => m.Product.image)
+                <input class="form-control" type="file" name="imageFile" onchange="showImage.call(this);" accept="image/*" id="real-life">
+                <button type="button" id="custom-button">Upload photo</button>
+                <span id="custom-text">No file chosen, yet</span>
+                <script>
+                    const realFileBtn = document.getElementById("real-life");
+                    const customBtn = document.getElementById("custom-button");
+                    const customTxt = document.getElementById("custom-text");
+
+                    customBtn.addEventListener("click", function () {
+                        realFileBtn.click();
+                    });
+
+                    realFileBtn.addEventListener("change", function () {
+                        if (realFileBtn.value) {
+                            customTxt.innerHTML = realFileBtn.value.match();
+                        }
+                        else { customTxt.innerHTML = "No file chosen, yet"; }
+                    });
+
+                    function showImage() {
+                        if (this.files && this.files[0]) {
+                            var obj = new FileReader();
+                            obj.onload = function (data) {
+                                var image = document.getElementById("image");
+                                image.src = data.target.result;
+                                image.style.display = "block";
+                            };
+                            obj.readAsDataURL(this.files[0]);
+                        }
+                    }
+                </script>
+                <img src="" class="cer" height="300" id="image">
+            </div>
+        </div>
+
+
+
+        <div class="form-group" style="font-weight:bold; margin-top:20px">
+            @Html.LabelFor(m => m.Product.name)
+            @Html.TextBoxFor(m => m.Product.name, new { @class = "form-control", placeholder = "Enter Your Name" })
+            @Html.ValidationMessageFor(m => m.Product.name)
+        </div>
+
+        <div class="form-group" style="font-weight:bold">
+            @Html.LabelFor(m => m.Product.price)
+            @Html.TextBoxFor(m => m.Product.price, new { @class = "form-control", placeholder = "Enter Product Price" })
+            @Html.ValidationMessageFor(m => m.Product.price)
+        </div>
+
+        <div id="gone" class="form-group" style="font-weight:bold">
+            @Html.LabelFor(m => m.Product.description)
+            @Html.TextAreaFor(m => m.Product.description, 6, 20, new { @class = "form-control", placeholder = "Enter Product Description" })
+            @Html.ValidationMessageFor(m => m.Product.description)
+        </div>
+
+        <div class="form-group" style="font-weight:bold">
+            @Html.LabelFor(m => m.Product.CategoryId)
+            @Html.DropDownListFor(m => m.Product.CategoryId, new SelectList(Model.Category, "id", "name"), "Select Product Category", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Product.CategoryId)
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="border-radius:10px;margin-top:10px">Submit</button>
+        <button type="reset" class="btn btn-danger" style="border-radius:10px;margin-top:10px; float:right">Delete all Info</button>
+    </div>
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

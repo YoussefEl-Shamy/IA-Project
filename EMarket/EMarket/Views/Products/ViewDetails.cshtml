@@ -1,0 +1,41 @@
+﻿@model EMarket.Models.Product
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 id="Pagetitle" style="text-align:center; font-weight:bold; margin-right:auto; margin-left:auto">
+    <span style="border-bottom:1.5px solid">Details</span>
+</h2>
+
+<p style="font-weight:bold;text-align:center">
+    @Model.name - @Model.price EGP (@Model.Category.name)
+</p>
+
+<div style="width:100%;text-align:center">
+    <img src="@Url.Content(Model.image)" style="max-width:350px" title="@Model.name" />
+</div>
+
+<pre>@Model.description</pre>
+
+<div>
+    <a href="@Url.Action("EditProduct", "Products", new { id = Model.id }, null)" id="custom-button" style="float:left">Edit Product Data</a>
+    <a href="@Url.Action("deleteProduct","Products", new { id = Model.id}, null)" class="btn btn-danger" style="border-radius:10px;margin-top:10px; float:right">Delete Product</a>
+</div><br />
+
+<style>
+    #custom-button {
+        margin-left: 5px;
+        padding: 10px;
+        color: white;
+        border: 1px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+        background-color: #009578;
+    }
+
+        #custom-button:hover {
+            text-decoration: none;
+            background-color: #007c63
+        }
+</style>
