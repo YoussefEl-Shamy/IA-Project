@@ -59,18 +59,27 @@ namespace EMarket.Controllers
         [HttpPost]
         public ActionResult AddConfirmmed(Product product, HttpPostedFileBase imageFile)
         {
-            if(imageFile != null)
-            { 
-                string fileName = Path.GetFileNameWithoutExtension(imageFile.FileName);
-                string extension = Path.GetExtension(imageFile.FileName);
-                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                product.image = "~/Image/" + fileName;
-                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
-                imageFile.SaveAs(fileName);
-            }
-
             if (product.id == 0)
             {
+                if (imageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(imageFile.FileName);
+                    string extension = Path.GetExtension(imageFile.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    product.image = "~/Image/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                    imageFile.SaveAs(fileName);
+                }
+                else
+                {
+                    var viewModel = new ProductCategoriesViewModel
+                    {
+                        Product = product,
+                        Category = context.categoryDb.ToList()
+                    };
+                    return View("AddProduct", viewModel);
+                }
+
                 Category category = new Category();
                 category = context.categoryDb.Find(product.CategoryId);
                 category.number_of_products++;
@@ -80,6 +89,26 @@ namespace EMarket.Controllers
 
             else
             {
+                if (imageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(imageFile.FileName);
+                    string extension = Path.GetExtension(imageFile.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    product.image = "~/Image/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                    imageFile.SaveAs(fileName);
+                }
+                else
+                {
+                    var viewModel = new ProductCategoriesViewModel
+                    {
+                        Product = product,
+                        Category = context.categoryDb.ToList()
+                    };
+                    var editAction = EditProduct(product.id);
+                    return editAction;
+                }
+
                 var productInDb = context.productDb.Single(p => p.id == product.id);
                 productInDb.name = product.name;
                 productInDb.price = product.price;
