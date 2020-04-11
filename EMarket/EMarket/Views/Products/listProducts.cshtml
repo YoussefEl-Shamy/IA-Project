@@ -37,18 +37,14 @@
 <a href="@Url.Action("AddProduct", "Products")" id="custom-button" style="float:right">Add Product</a>
 <br />
 <br />
-<h2 id="Pagetitle" style="        text-align: center;
-        font-weight: bold;
-        margin-right: auto;
-        margin-left: auto;
-        display: block">
+<h2 id="Pagetitle" style="text-align: center; font-weight: bold; margin-right: auto;  margin-left: auto; display: block">
     <span style="border-bottom: 1.5px solid">All Products</span>
 </h2>
 
 <div class="grid" style="margin-top:50px">
     @foreach (var product in Model)
     {
-        <a href="@Url.Action("ViewDetails","Products", new { id = product.id }, null)" class="Search">
+        <a href="@Url.Action("ViewDetails","Products", new { id = product.id }, null)">
             <div style="border-radius: 15px; text-align:center;border:1.5px solid #000; border-top-width:0.45px;height:300px; padding-top:10px">
                 <img src="@Url.Content(product.image)" style="max-height: 200px;max-width:200px" title="@product.name" /><br />
                 <p style="font-weight:bolder">@product.name</p>
@@ -58,28 +54,3 @@
         </a>
     }
 </div>
-
-<!--
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
-    $(docoument).ready(function () {
-        function Contains(text_one, text_two) {
-            if (text_one.indexOf(text_two) != -1) {
-                return true;
-            }
-        }
-        $("#Search").keyup(function () {
-            var searchText = $("#Search").val().toLowerCase();
-            $(".Search").each(function () {
-                if (!Contains($(this).text().toLowerCase(), searchText)) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
-            });
-        });
-    });
-</script>
--->
