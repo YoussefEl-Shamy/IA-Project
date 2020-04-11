@@ -28,29 +28,58 @@
 </style>
 
 <form class="form-inline my-2 my-lg-0" style="float:left;" action="ListOneCategory" method="post">
-    <input class="form-control mr-sm-2" type="text" name="categoryName" placeholder="Search For Category" style="width:222250px;border-radius:10px">
-    <button class="btn btn-secondary my-2 my-sm-0" type="submit" style="border-radius:10px;background-color: #636f70 !important">Submit</button>
+    <input id="Search" class="form-control mr-sm-2" type="text" name="categoryName" placeholder="Search For Category" style="width:222250px;border-radius:10px">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit" style="background:none;border:none; padding:0px">
+        <img src="~/search.png" height="35" width="35" style="background-color:none; border:1.5px solid #1d2156; border-radius:100%; padding:6px 6px 6px 6px"/>
+    </button>
 </form>
 
 <a href="@Url.Action("AddProduct", "Products")" id="custom-button" style="float:right">Add Product</a>
 <br />
 <br />
-<h2 id="Pagetitle" style="text-align:center; font-weight:bold; margin-right:auto; margin-left:auto;display:block">
+<h2 id="Pagetitle" style="        text-align: center;
+        font-weight: bold;
+        margin-right: auto;
+        margin-left: auto;
+        display: block">
     <span style="border-bottom: 1.5px solid">All Products</span>
 </h2>
 
 <div class="grid" style="margin-top:50px">
     @foreach (var product in Model)
     {
-        <a href="@Url.Action("ViewDetails","Products", new { id = product.id }, null)">
+        <a href="@Url.Action("ViewDetails","Products", new { id = product.id }, null)" class="Search">
             <div style="border-radius: 15px; text-align:center;border:1.5px solid #000; border-top-width:0.45px;height:300px; padding-top:10px">
                 <img src="@Url.Content(product.image)" style="max-height: 200px;max-width:200px" title="@product.name" /><br />
                 <p style="font-weight:bolder">@product.name</p>
                 <p>@product.price EGP</p>
+                <input type="hidden" value="@product.CategoryId">
             </div>
         </a>
     }
 </div>
 
-
-
+<!--
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(docoument).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1) {
+                return true;
+            }
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>
+-->

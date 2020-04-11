@@ -160,34 +160,17 @@ namespace EMarket.Controllers
         {
             List<Product> categoryProducts = null;
 
-            if (categoryName == null)
+            if (String.IsNullOrEmpty(categoryName))
                 return RedirectToAction("listProducts");
 
-            if (categoryName.Equals("Mobile") || categoryName.Equals("Mobiles") || categoryName.Equals("mobiles") || categoryName.Equals("mobile"))
-                categoryProducts = context.productDb.Where(p => p.CategoryId == 1).ToList();
-
-            else if (categoryName.Equals("Refrigerator") || categoryName.Equals("Refrigerators") || categoryName.Equals("refrigerator") || categoryName.Equals("refrigerators"))
-                categoryProducts = context.productDb.Where(p => p.CategoryId == 2).ToList();
-
-            else if (categoryName.Equals("Laptop") || categoryName.Equals("Laptops") || categoryName.Equals("laptop") || categoryName.Equals("laptops"))
-                categoryProducts = context.productDb.Where(p => p.CategoryId == 3).ToList();
-
-            else if (categoryName.Equals("Clothes") || categoryName.Equals("clothes"))
-                categoryProducts = context.productDb.Where(p => p.CategoryId == 4).ToList();
-
-            else if (categoryName.Equals("Washer") || categoryName.Equals("Washers") || categoryName.Equals("washer") || categoryName.Equals("washers"))
-                categoryProducts = context.productDb.Where(p => p.CategoryId == 5).ToList();
-
-            else if (categoryName.Equals("Flash Drive") || categoryName.Equals("flash drive") || categoryName.Equals("Flash drive") || categoryName.Equals("flash Drive") || categoryName.Equals("Flash Drive") || categoryName.Equals("flash drives") || categoryName.Equals("Flash drives") || categoryName.Equals("flash Drives"))
-                categoryProducts = context.productDb.Where(p => p.CategoryId == 6).ToList();
-
-            else if (categoryName.Equals("Camera") || categoryName.Equals("Cameras") || categoryName.Equals("camera") || categoryName.Equals("cameras"))
-                categoryProducts = context.productDb.Where(p => p.CategoryId == 7).ToList();
-
-            else
+            else if(!String.IsNullOrEmpty(categoryName))
             {
-                var category = context.categoryDb.ToList();
-                return View(category);
+                categoryProducts = context.productDb.Where(p => p.Category.name.Contains(categoryName)).ToList();
+                if(categoryProducts.Count == 0)
+                {
+                    var categories = context.categoryDb.ToList();
+                    return View(categories);
+                }
             }
 
             return View("listProducts", categoryProducts);
