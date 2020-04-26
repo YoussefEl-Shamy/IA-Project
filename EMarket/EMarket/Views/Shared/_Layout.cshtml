@@ -1,6 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="~/sale.png" />
@@ -8,6 +11,28 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
+        .close:hover {
+                opacity: 1;
+              }
+              .close:before, .close:after {
+                position: absolute;
+                left: 15px;
+                content: ' ';
+                height: 15px;
+                width: 2px;
+                background-color: #333;
+              }
+              .close:before {
+                transform: rotate(45deg);
+              }
+              .close:after {
+                transform: rotate(-45deg);
+              }
+              .close{
+                  color:#000;
+                  font-size:45px
+              }
+
         .dropdown {
             position: relative;
             display: inline-block;
@@ -41,9 +66,49 @@
             background-color: #3e8e41;
         }
     </style>
+
+    <script>
+        $(document).ready(function () {
+            $(".mqcspan").click(function () {
+
+                $(".mqcDiv").animate({
+                    width: '98%',
+                    height: '100%',
+                });
+                $(".mqc").animate({
+                    width: '75%',
+                    height: '25px'
+                });
+                $(".mqc").animate({
+                    height: '100%',
+                });
+
+                $(".mqcDiv").animate({
+                    borderRadius: '20px',
+                });
+                $(".popUpTitle").show();
+            });
+
+            $(".close").click(function(){
+      $(".mqc").animate({
+         height:'25px' 
+      });
+      
+      $(".mqc").animate({
+         height:'0px',
+         width:'0px'
+      });
+      
+      $(".mqcDiv").animate({
+         height:'0px',
+         width:'0px'
+      });
+   });
+        });
+    </script>
 </head>
 <body style="margin-left:auto; margin-right:auto; width:100%;">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="margin-top:-50px; padding:10px 5px 10px 40px; margin-bottom:20px; position: sticky; top:0;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="margin-top:-50px; padding:10px 5px 10px 40px; margin-bottom:20px; position: sticky; top:0; z-index:9999">
         <a class="navbar-brand" href="@Url.Action("Index", "Home")" style="font-weight: bold; font-size:29px">
             <span style="font-size:34px">3S</span>DF
         </a>
@@ -63,9 +128,21 @@
                     <a class="nav-link" href="@Url.Action("About", "Home")">About</a>
                 </li>
             </ul>
+            <span class="btn btn-secondary my-2 my-sm-0 mqcspan" href="@Url.Action("Login","Home")" style="background:none; border:none">
+                Go to Cart List &rarr;
+            </span>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content" style="z-index:1">
+        <div class="mqcDiv" style="height:initial;margin: 0px auto;left: 10px;right: 10px;opacity: 0.9;background-color: black;position: absolute;text-align: center;z-index: 2;"></div>
+        <div class="mqc" style="height: auto; margin: 0 auto;z-index: 3;left: 50px;right: 50px;border-radius: 20px;position: absolute;background-color: white;overflow: auto">
+            <p class="popUpTitle" style="display: none; text-align:center; font-size:40px; border-bottom:2.5px solid black; font-weight:bold; margin:5px auto">Cart List</p>
+            <a style="cursor: pointer;position: absolute;right: 15px;top: 10px;width: 20px;height: 20px;opacity: 0.3;" class="close"></a>
+                @foreach( var product in ViewBag.products)
+                {
+                    <p>@product.name</p>
+                }
+        </div>
         @RenderBody()
         <hr />
         <footer>
@@ -73,8 +150,8 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>

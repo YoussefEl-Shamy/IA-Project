@@ -13,13 +13,13 @@
 </p>
 
 <div style="width:100%;text-align:center">
-    <img src="@Url.Content(Model.image)" style="max-width:350px" title="@Model.name" />
+    <img src="@Url.Content(Model.image)" style="max-width:320px" title="@Model.name" />
 </div>
 
 <pre>@Model.description</pre>
 
 <div>
-    <a href="@Url.Action("EditProduct", "Products", new { id = Model.id }, null)" id="custom-button" style="float:left">Edit Product Data</a>
+    <a href="@Url.Action("EditProduct", "Products", new { id = Model.id }, null)" id="custom-button" style="float:left">Edit Data</a>
     <a href="@Url.Action("deleteProduct","Products", new { id = Model.id}, null)" class="btn btn-danger" style="border-radius:10px;margin-top:10px; float:right">Delete Product</a>
 </div><br />
 

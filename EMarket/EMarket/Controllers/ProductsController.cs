@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace EMarket.Controllers
         public ProductsController()
         {
             context = new DB();
+            ViewBag.products = context.productDb.ToList();
         }
 
         protected override void Dispose(bool disposing)
@@ -189,6 +191,11 @@ namespace EMarket.Controllers
                 }
 
             return View("listProducts", categoryProducts);
+        }
+
+        public ActionResult addToCart(int id)
+        {
+            return RedirectToAction("listProducts");
         }
     }
 }
