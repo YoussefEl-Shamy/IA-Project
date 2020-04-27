@@ -167,6 +167,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ProductCategoriesViewModel.cs" />
+    <Compile Include="ViewModel\ProductsCartIDsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap %282%29.css" />

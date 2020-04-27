@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EMarket.Models.Product>
+﻿@model EMarket.ViewModel.ProductsCartIDsViewModel
 @{
     ViewBag.Title = "listProducts";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -45,8 +45,13 @@
 
 <div class="container" style="margin-top:50px">
     <div class="row">
-        @foreach (var product in Model)
+        @foreach (var product in Model.products)
         {
+            if(Model.cartProductsIDs.Contains(product.id))
+            {
+                Model.inCart = true;
+            }
+            else { Model.inCart = false; }
             <div class="col-6 col-sm-4 col-lg-2">
                 <div class="clickable" style="cursor: help; min-height:300px; overflow:hidden; border-radius: 15px;
                                                                 text-align:center;border:1.5px solid #000; border-top-width:0.45px;
@@ -58,7 +63,11 @@
                     </div>
                     <a href="@Url.Action("ViewDetails","Products", new { id = product.id }, null)"></a>
                     <input type="hidden" value="@product.CategoryId">
-                    <a href="@Url.Action("addToCart","Products",new { id = product.id })" class="btn btn-outline-primary" style="position:absolute; bottom:0px; right:0; left:0;">Add To Cart</a>
+                    @if (Model.inCart == false)
+                    {
+                        <a href="@Url.Action("addToCart","Products",new { id = product.id })" class="btn btn-outline-primary" style="position:absolute; bottom:0px; right:0; left:0;">Add To Cart</a>
+                    }
+                    else { <a href="@Url.Action("addToCart","Products",new { id = product.id })" class="btn btn-primary disabled" style="position:absolute; bottom:0px; right:0; left:0; pointer-events: none; cursor: default">Add To Cart</a> }
                 </div>
             </div>
         }

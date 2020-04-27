@@ -135,7 +135,19 @@ namespace EMarket.Controllers
         public ActionResult listProducts()
         {
             var products = context.productDb.ToList();
-            return View(products);
+            var cartProducts = context.cartDb.ToList();
+
+            List<int> cartProductsIDs = new List<int>();
+
+            for (int i = 0; i < cartProducts.Count(); i++)
+                cartProductsIDs.Add(cartProducts[i].product_id);
+
+            var viewModel = new ProductsCartIDsViewModel
+            {
+                products = products,
+                cartProductsIDs = cartProductsIDs
+            };
+            return View(viewModel);
         }
 
         public ActionResult ViewDetails(int id)
@@ -152,6 +164,11 @@ namespace EMarket.Controllers
             Category category = new Category();
             category = context.categoryDb.Find(product.CategoryId);
             category.number_of_products--;
+
+            string filePath = Server.MapPath(product.image);
+            
+            if (System.IO.File.Exists(filePath))
+                System.IO.File.Delete(filePath);
 
             context.productDb.Remove(product);
             context.SaveChanges();
@@ -175,8 +192,18 @@ namespace EMarket.Controllers
                     return View(categories);
                 }
             }
+            var cartProducts = context.cartDb.ToList();
+            List<int> cartProductsIDs = new List<int>();
 
-            return View("listProducts", categoryProducts);
+            for (int i = 0; i < cartProducts.Count(); i++)
+                cartProductsIDs.Add(cartProducts[i].product_id);
+
+            var viewModel = new ProductsCartIDsViewModel
+            {
+                products = categoryProducts,
+                cartProductsIDs = cartProductsIDs
+            };
+            return View("listProducts", viewModel);
         }
 
         public ActionResult ListOneCategoryId(int categoryId)
@@ -191,7 +218,18 @@ namespace EMarket.Controllers
                     break;
                 }
 
-            return View("listProducts", categoryProducts);
+            var cartProducts = context.cartDb.ToList();
+            List<int> cartProductsIDs = new List<int>();
+
+            for (int i = 0; i < cartProducts.Count(); i++)
+                cartProductsIDs.Add(cartProducts[i].product_id);
+
+            var viewModel = new ProductsCartIDsViewModel
+            {
+                products = categoryProducts,
+                cartProductsIDs = cartProductsIDs
+            };
+            return View("listProducts", viewModel);
         }
 
         public ActionResult addToCart(int id)
@@ -211,6 +249,14 @@ namespace EMarket.Controllers
                 context.SaveChanges();
             }
             return RedirectToAction("listProducts");
+        }
+
+        public ActionResult removeFromCart(int id)
+        {
+            Cart productInCart = context.cartDb.Find(id);
+            context.cartDb.Remove(productInCart);
+            context.SaveChanges();
+            return RedirectToAction("listProducts", "Products");
         }
     }
 }
