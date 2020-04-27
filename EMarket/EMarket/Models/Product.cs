@@ -43,5 +43,7 @@ namespace EMarket.Models
         
         [NotMapped]
         public virtual int oldCategoryId { get; set; }
+
+        public virtual Cart Cart { get; set; }
     }
 }

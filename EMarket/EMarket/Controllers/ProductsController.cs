@@ -195,7 +195,17 @@ namespace EMarket.Controllers
 
         public ActionResult addToCart(int id)
         {
+            Cart soldProduct = new Cart();
+            soldProduct.product_id = id;
+            soldProduct.added_at = DateTime.Now;
+
+            context.cartDb.Add(soldProduct);
+            context.SaveChanges();
             return RedirectToAction("listProducts");
         }
     }
 }
+
+
+/*var soldProduct = context.cartDb.Find(id);
+            TimeSpan val = soldProduct.diff;*/

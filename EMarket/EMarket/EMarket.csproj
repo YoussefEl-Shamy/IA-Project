@@ -157,6 +157,10 @@
     <Compile Include="Migrations\202003290716505_Adding_Required_data_annotation_to_myAttributes.designer.cs">
       <DependentUpon>202003290716505_Adding_Required_data_annotation_to_myAttributes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004270004068_Adding_Cart_Model.cs" />
+    <Compile Include="Migrations\202004270004068_Adding_Cart_Model.designer.cs">
+      <DependentUpon>202004270004068_Adding_Cart_Model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
@@ -246,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003290716505_Adding_Required_data_annotation_to_myAttributes.resx">
       <DependentUpon>202003290716505_Adding_Required_data_annotation_to_myAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004270004068_Adding_Cart_Model.resx">
+      <DependentUpon>202004270004068_Adding_Cart_Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

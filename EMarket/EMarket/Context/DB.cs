@@ -11,5 +11,6 @@ namespace EMarket.Context
     {
         public DbSet<Category> categoryDb { get; set; }
         public DbSet<Product> productDb { get; set; }
+        public DbSet<Cart> cartDb { get; set; }
     }
 }
