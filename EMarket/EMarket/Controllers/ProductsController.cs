@@ -23,7 +23,8 @@ namespace EMarket.Controllers
         public ProductsController()
         {
             context = new DB();
-            ViewBag.products = context.productDb.ToList();
+            ViewBag.Products = context.productDb.ToList();
+            ViewBag.CartProducts = context.cartDb.ToList();
         }
 
         protected override void Dispose(bool disposing)
@@ -198,9 +199,17 @@ namespace EMarket.Controllers
             Cart soldProduct = new Cart();
             soldProduct.product_id = id;
             soldProduct.added_at = DateTime.Now;
+            var cartProducts = context.cartDb.ToList();
 
-            context.cartDb.Add(soldProduct);
-            context.SaveChanges();
+            List<int> cartProductsIDs = new List<int>();
+
+            for (int i = 0; i < cartProducts.Count(); i++)
+                cartProductsIDs.Add(cartProducts[i].product_id);
+
+            if (!cartProductsIDs.Contains(id)) {
+                context.cartDb.Add(soldProduct);
+                context.SaveChanges();
+            }
             return RedirectToAction("listProducts");
         }
     }

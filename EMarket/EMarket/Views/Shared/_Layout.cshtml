@@ -107,7 +107,7 @@
         });
     </script>
 </head>
-<body style="margin-left:auto; margin-right:auto; width:100%;">
+<body style="margin-left:auto; margin-right:auto; width:100%; position: relative">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="margin-top:-50px; padding:10px 5px 10px 40px; margin-bottom:20px; position: sticky; top:0; z-index:9999">
         <a class="navbar-brand" href="@Url.Action("Index", "Home")" style="font-weight: bold; font-size:29px">
             <span style="font-size:34px">3S</span>DF
@@ -128,20 +128,39 @@
                     <a class="nav-link" href="@Url.Action("About", "Home")">About</a>
                 </li>
             </ul>
-            <span class="btn btn-secondary my-2 my-sm-0 mqcspan" href="@Url.Action("Login","Home")" style="background:none; border:none">
+            <span class="btn btn-secondary my-2 my-sm-0 mqcspan" href="@Url.Action("Login", "Home")" style="background:none; border:none">
                 Go to Cart List &rarr;
             </span>
         </div>
     </nav>
     <div class="container body-content" style="z-index:1">
-        <div class="mqcDiv" style="height:initial;margin: 0px auto;left: 10px;right: 10px;opacity: 0.975;background-color: black;position: absolute;text-align: center;z-index: 2;"></div>
-        <div class="mqc" style="height: auto; margin: 0 auto;z-index: 3;left: 50px;right: 50px;border-radius: 20px;position: absolute;background-color: white;overflow: auto">
-            <p class="popUpTitle" style="display: none; text-align:center; font-size:40px; border-bottom:2.5px solid black; font-weight:bold; margin:5px auto">Cart List</p>
+        <div class="mqcDiv" style="height: auto;margin: 0px auto;left: 10px;right: 10px;opacity: 0.975;background-color: black;position: absolute;text-align: center;z-index: 2;"></div>
+        <div class="mqc" style="height: auto; margin: 0 auto;z-index: 3;left: 50px;right: 50px;border-radius: 20px;position: absolute;background-color: white;overflow: auto;">
+            <p class="popUpTitle" style="display: none; text-align:center; font-size:40px; border-bottom:2.5px solid black; font-weight:bold; margin:5px auto 10px">Cart List</p>
             <a style="cursor: pointer;position: absolute;right: 15px;top: 10px;width: 20px;height: 20px;opacity: 0.3;" class="close"></a>
-                @foreach( var product in ViewBag.products)
-                {
-                    <p class="popUpTitle" style="display: none">@product.name</p>
-                }
+                @foreach (var Cartproduct in ViewBag.CartProducts)
+                 {
+                    <div class="popUpTitle" style="position: relative; border-radius: 5px; display: none; border: 1.5px solid black; overflow: hidden; margin-bottom: 15px; background-color: rgba(0,0,0,0.2)">
+                        <div style="float: right; width:75%; padding-left: 15px">
+                            @foreach (var Product in ViewBag.Products)
+                             {
+                                if (Product.id == Cartproduct.product_id)
+                                {
+                                    var product = Product;
+                                    <p class="popUpTitle" style="display: none">@product.name - @product.price EGP</p>
+                                }
+                             }
+                            @{TimeSpan value = DateTime.Now - Cartproduct.added_at;}
+                                @if (value.Days == 0)
+                                 { <p class="popUpTitle" style="display: none">Added to cart<span style="margin-right: 10px; margin-left:10px; color: #b70000; font-weight: bold">@value.Hours hours & @value.Minutes minutes</span>ago</p> }
+                                 else
+                                 { <p class="popUpTitle" style="display: none">Added to cart<span style="margin-right: 10px; margin-left:10px; color: #b70000; font-weight: bold">@value.Days days & @value.Hours hours</span>ago</p> }
+                        </div>
+                        <a class="btn btn-danger" style="font-weight: bold; color:white; float: left; width:25%; border-right: 1.5px solid #000; position: absolute; top:0; left:0; height: 100%">
+                            <p style="border-radius:5px; width:100%; height: 100%; text-align: center; border: 1.5px solid">Remove</p>
+                        </a>
+                    </div>
+                 }
         </div>
         @RenderBody()
         <hr />

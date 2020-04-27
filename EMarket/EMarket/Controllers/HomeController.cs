@@ -12,7 +12,10 @@ namespace EMarket.Controllers
         DB db = new DB();
 
         public HomeController()
-        { ViewBag.products = db.productDb.ToList(); }
+        {
+            ViewBag.Products = db.productDb.ToList();
+            ViewBag.CartProducts = db.cartDb.ToList();
+        }
         public ActionResult Index()
         {
             return View();
