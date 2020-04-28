@@ -135,12 +135,12 @@
     </nav>
     <div class="container body-content" style="z-index:1">
         <div class="mqcDiv" style="height: auto;margin: 0px auto;left: 10px;right: 10px;opacity: 0.975;background-color: black;position: absolute;text-align: center;z-index: 2;"></div>
-        <div class="mqc" style="height: auto; margin: 0 auto;z-index: 3;left: 50px;right: 50px;border-radius: 20px;position: absolute;background-color: white;overflow: auto;">
+        <div class="mqc" style="height: auto; margin: 0 auto;z-index: 3;left: 50px;right: 50px;border-radius: 20px;position: absolute;background-color: white;overflow: auto">
             <p class="popUpTitle" style="display: none; text-align:center; font-size:40px; border-bottom:2.5px solid black; font-weight:bold; margin:5px auto 10px">Cart List</p>
             <a style="cursor: pointer;position: absolute;right: 15px;top: 10px;width: 20px;height: 20px;opacity: 0.3;" class="close"></a>
                 @foreach (var Cartproduct in ViewBag.CartProducts)
                  {
-                    <div class="popUpTitle" style="position: relative; border-radius: 5px; display: none; border: 1.5px solid black; overflow: hidden; margin-bottom: 15px; background-color: rgba(0,0,0,0.2)">
+                    <div class="popUpTitle" style="position: relative; border-radius: 5px; display: none; border: 1.5px solid black; overflow: hidden; margin-bottom: 15px; background-color: rgba(0,0,0,0.2); padding-right: 5px">
                         <div style="float: right; width:75%; padding-left: 15px">
                             @foreach (var Product in ViewBag.Products)
                             {
@@ -169,7 +169,7 @@
                             else
                             { <p class="popUpTitle" style="display: none">Added to cart<span style="margin-right: 10px; margin-left:10px; color: #b70000; font-weight: bold">@value.Days days & @value.Hours hours</span>ago</p>}
                         </div>
-                        <a href="@Url.Action("removeFromCart", "Products", new { id = Cartproduct.product_id })" class="btn btn-danger" style="font-weight: bold; color:white; float: left; width:25%; border-right: 1.5px solid #000; position: absolute; top:0; left:0; height: 100%">
+                        <a href="@Url.Action("removeFromCart", "Products", new { id = Cartproduct.product_id })" class="btn btn-danger" style="font-weight: bold; color:white; float: left; width:25%; border-right: 1.5px solid #000; position: absolute; top:0; left:0; height: 100%; padding: 3px">
                             <p style="border-radius:5px; width:100%; height: 100%; text-align: center; border: 1.5px solid">Remove</p>
                         </a>
                     </div>
