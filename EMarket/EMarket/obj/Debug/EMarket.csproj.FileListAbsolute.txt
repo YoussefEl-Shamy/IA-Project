@@ -266,3 +266,4 @@ E:\Github Projects\IA Project\IA-Project\EMarket\EMarket\obj\Debug\EMarket.cspro
 E:\Github Projects\IA Project\IA-Project\EMarket\EMarket\obj\Debug\EMarket.dll
 E:\Github Projects\IA Project\IA-Project\EMarket\EMarket\obj\Debug\EMarket.pdb
 E:\Github Projects\IA Project\IA-Project\EMarket\EMarket\obj\Debug\EMarket.Migrations.Adding_Cart_Model.resources
+E:\Github Projects\IA Project\IA-Project\EMarket\EMarket\obj\Debug\EMarket.csproj.CoreCompileInputs.cache

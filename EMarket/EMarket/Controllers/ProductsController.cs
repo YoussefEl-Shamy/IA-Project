@@ -178,6 +178,7 @@ namespace EMarket.Controllers
         [HttpPost]
         public ActionResult ListOneCategory(string categoryName)
         {
+            ViewBag.category = categoryName;
             List<Product> categoryProducts = null;
 
             if (String.IsNullOrEmpty(categoryName))
@@ -186,7 +187,8 @@ namespace EMarket.Controllers
             else if(!String.IsNullOrEmpty(categoryName))
             {
                 categoryProducts = context.productDb.Where(p => p.Category.name.Contains(categoryName)).ToList();
-                if(categoryProducts.Count == 0)
+                if (categoryProducts.Count > 0) { ViewBag.categoryName = categoryProducts[0].Category.name; }
+                else
                 {
                     var categories = context.categoryDb.ToList();
                     return View(categories);
@@ -208,6 +210,7 @@ namespace EMarket.Controllers
 
         public ActionResult ListOneCategoryId(int categoryId)
         {
+            ViewBag.categoryName = context.categoryDb.Find(categoryId).name;
             var categories = context.categoryDb.ToList();
             List<Product> categoryProducts= null;
 

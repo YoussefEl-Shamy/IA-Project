@@ -16,15 +16,6 @@ namespace EMarket.Models
         [Required]
         public DateTime added_at { get; set; }
 
-        [NotMapped]
-        public TimeSpan diff
-        {
-            get
-            {
-                return DateTime.Now - this.added_at;
-            }
-        }
-
         public virtual Product Product { get; set; }
 
     }

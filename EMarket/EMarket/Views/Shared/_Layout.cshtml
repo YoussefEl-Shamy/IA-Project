@@ -153,9 +153,13 @@
                             @{TimeSpan value = DateTime.Now - Cartproduct.added_at;}
                             @if (value.Days == 0)
                             {
-                                if (value.Hours == 0)
+                                if (value.Hours == 0 && value.Minutes == 0)
                                 {
-                                    <p class="popUpTitle" style="display: none">Added to cart<span style="margin-right: 10px; margin-left:10px; color: #b70000; font-weight: bold">@value.Minutes minutes</span>ago</p>
+                                    <p class="popUpTitle" style="display: none">Added to cart<span style="margin-right: 10px; margin-left:10px; color: #b70000; font-weight: bold">@value.Seconds seconds</span>ago</p>
+                                }
+                                else if (value.Hours == 0)
+                                {
+                                    <p class="popUpTitle" style="display: none">Added to cart<span style="margin-right: 10px; margin-left:10px; color: #b70000; font-weight: bold">@value.Minutes minutes @value.Seconds seconds</span>ago</p>
                                 }
                                 else if (value.Minutes == 0)
                                 {
@@ -169,8 +173,8 @@
                             else
                             { <p class="popUpTitle" style="display: none">Added to cart<span style="margin-right: 10px; margin-left:10px; color: #b70000; font-weight: bold">@value.Days days & @value.Hours hours</span>ago</p>}
                         </div>
-                        <a href="@Url.Action("removeFromCart", "Products", new { id = Cartproduct.product_id })" class="btn btn-danger" style="font-weight: bold; color:white; float: left; width:25%; border-right: 1.5px solid #000; position: absolute; top:0; left:0; height: 100%; padding: 3px">
-                            <p style="border-radius:5px; width:100%; height: 100%; text-align: center; border: 1.5px solid">Remove</p>
+                        <a href="@Url.Action("removeFromCart", "Products", new { id = Cartproduct.product_id })" class="btn btn-danger" style="color:white; float: left; width:25%; border-right: 1.5px solid #000; position: absolute; top:0; left:0; height: 100%; padding: 3px; font-weight: bold">
+                            <p style="position: absolute; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); font-size: 1.5vw; border-radius:5px; text-align: center; border-bottom: 2px solid">Remove</p>
                         </a>
                     </div>
                  }
