@@ -9,6 +9,7 @@ namespace EMarket.Models
 {
     public class Cart
     {
+        /*Product ID is foreign key and primary key to create 1 to 1 relationship with product*/
         [Key]
         [ForeignKey("Product")]
         public int product_id { get; set; }

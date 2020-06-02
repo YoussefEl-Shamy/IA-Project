@@ -139,6 +139,7 @@ namespace EMarket.Controllers
 
             List<int> cartProductsIDs = new List<int>();
 
+            //That loop is Adding all of the products' IDs to a list
             for (int i = 0; i < cartProducts.Count(); i++)
                 cartProductsIDs.Add(cartProducts[i].product_id);
 
@@ -190,6 +191,8 @@ namespace EMarket.Controllers
                 if (categoryProducts.Count > 0) { ViewBag.categoryName = categoryProducts[0].Category.name; }
                 else
                 {
+                    /*if the user reach to this part that means he filter products with unavailable category.
+                    So, he will be redirected automatcally to the view that contains all of the categories*/
                     var categories = context.categoryDb.ToList();
                     return View(categories);
                 }

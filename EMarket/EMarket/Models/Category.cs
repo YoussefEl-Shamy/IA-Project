@@ -14,6 +14,7 @@ namespace EMarket.Models
         public string name { get; set; }
         [Display(Name = "Number Of Products")]
         public int number_of_products { get; set; }
+        /*A list of products because every category has more than one product*/
         public virtual ICollection<Product> Products { get; set; }
     }
 }
